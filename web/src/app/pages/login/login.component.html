@@ -18,11 +18,13 @@
           </div>
           <div class="flip-card__back">
             <div class="title">Cadastro</div>
-            <form action="" class="flip-card__form">
-              <input type="name" placeholder="Nome" class="flip-card__input">
-              <input type="email" placeholder="Email" name="email" class="flip-card__input">
-              <input type="password" placeholder="Senha" name="password" class="flip-card__input">
-              <button class="flip-card__btn">Confirmar</button>
+            <form (ngSubmit)="onSignup()" class="flip-card__form">
+              <input type="text" placeholder="Nome" name="signupName" [(ngModel)]="signupName" class="flip-card__input">
+              <input type="email" placeholder="Email" name="signupEmail" [(ngModel)]="signupEmail"
+                class="flip-card__input">
+              <input type="password" placeholder="Senha" name="signupPassword" [(ngModel)]="signupPassword"
+                class="flip-card__input">
+              <button type="submit" class="flip-card__btn">Confirmar</button>
             </form>
           </div>
         </div>

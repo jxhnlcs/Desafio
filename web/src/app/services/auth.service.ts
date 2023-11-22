@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class authService {
   apiUrl: any;
-  constructor(private http: HttpClient,  private configService: ConfigService) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   login(email: string, password: string): Observable<any> {
     const credentials = { email: email, password: password };
@@ -23,6 +23,17 @@ export class authService {
           } else {
             console.log('No accessToken in the response:', response);
           }
+        })
+      );
+  }
+
+  signup(name: string, email: string, password: string): Observable<any> {
+    const user = { name: name, email: email, password: password };
+    return this.http
+      .post<any>(`${this.configService.apiUrl}/user`, user)
+      .pipe(
+        tap((response) => {
+          console.log('Signup Response:', response);
         })
       );
   }
