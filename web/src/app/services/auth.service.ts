@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class loginService {
+export class authService {
   apiUrl: any;
   constructor(private http: HttpClient,  private configService: ConfigService) { }
 
@@ -16,8 +16,12 @@ export class loginService {
     return this.http.post<any>(`${this.configService.apiUrl}/user/login`, credentials)
       .pipe(
         tap(response => {
-          if (response.token) {
-            localStorage.setItem('token', response.token);
+          console.log('Login Response:', response);
+          if (response.accessToken) {
+            localStorage.setItem('token', response.accessToken);
+            console.log('Token saved to localStorage:', response.accessToken);
+          } else {
+            console.log('No accessToken in the response:', response);
           }
         })
       );

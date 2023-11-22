@@ -89,8 +89,7 @@ export class ConsultationService {
   private isCepInRadius(userCep: string, targetCep: string, radius: number): boolean {
     const numericUserCep = userCep.replace('-', '');
     const numericTargetCep = targetCep.replace('-', '');
-
-    // Comparar apenas os primeiros dígitos do CEP para simular a lógica
+    
     return numericUserCep.startsWith(numericTargetCep.substr(0, radius));
   }
 
