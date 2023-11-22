@@ -19,7 +19,6 @@ export class authService {
           console.log('Login Response:', response);
           if (response.accessToken) {
             localStorage.setItem('token', response.accessToken);
-            console.log('Token saved to localStorage:', response.accessToken);
           } else {
             console.log('No accessToken in the response:', response);
           }

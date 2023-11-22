@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { authService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -36,11 +37,17 @@ export class LoginComponent {
 
   onSignup(): void {
     if (this.signupName && this.signupEmail && this.signupPassword) {
-      // Chama o método de cadastro do authService com os campos de cadastro
       this.authService.signup(this.signupName, this.signupEmail, this.signupPassword)
         .subscribe(
           () => {
-            console.log('Cadastro bem-sucedido. Você pode fazer login agora.');
+            this.signupName = '';
+            this.signupEmail = '';
+            this.signupPassword = '';
+
+            Swal.fire('Cadastro concluído com sucesso!', '', 'success')
+              .then(() => {
+                location.reload();
+              });
           },
           (error) => {
             console.error('Erro ao cadastrar:', error);
