@@ -1,1 +1,8 @@
-<p>nav works!</p>
+<div class="nav-container">
+  <ul>
+
+    <li *ngIf="name">Bem-vindo, {{ name }}!</li>
+
+    <li><a (click)="onLogout()">Logout</a></li>
+  </ul>
+</div>

@@ -39,7 +39,7 @@ export class ConsultationService {
 
   async updateConsultation(consultationId: string, updateConsultationDto: CreateConsultationDto): Promise<ConsultationDto> {
     const numericConsultationId = parseInt(consultationId, 10);
-    
+
     if (isNaN(numericConsultationId)) {
       throw new NotFoundException(`Invalid user ID: ${consultationId}`);
     }
@@ -62,7 +62,7 @@ export class ConsultationService {
     if (isNaN(numericConsultationId)) {
       throw new NotFoundException(`Invalid user ID: ${consultationId}`);
     }
-    
+
     const deletedConsultation = await this.prisma.consultation.delete({
       where: { id: numericConsultationId },
     });
@@ -72,26 +72,24 @@ export class ConsultationService {
     }
   }
 
-  async findCepsInRadius(userCep: string, radius: number): Promise<string[]> {
+  async findCepsInRadius(userCep: string, radius: number): Promise<any[]> {
     const allCeps = await this.prisma.consultation.findMany();
 
     const cepsInRadius = allCeps
-      .filter((consultation) => this.isCepInRadius(userCep, consultation.cep, radius))
-      .map((consultation) => consultation.cep);
+      .filter((consultation) => consultation.radius <= radius)
+      .map((consultation) => ({
+        id: consultation.id,
+        cep: consultation.cep,
+        radius: consultation.radius,
+        userId: consultation.userId,
+      }));
 
     if (cepsInRadius.length === 0) {
       throw new NotFoundException(`No CEPs found within the specified radius.`);
     }
 
     return cepsInRadius;
-  }
-
-  private isCepInRadius(userCep: string, targetCep: string, radius: number): boolean {
-    const numericUserCep = userCep.replace('-', '');
-    const numericTargetCep = targetCep.replace('-', '');
-    
-    return numericUserCep.startsWith(numericTargetCep.substr(0, radius));
-  }
+}
 
   private consultationToDto(consultation: any): ConsultationDto {
     const { id, cep, radius, userId, createdAt } = consultation;

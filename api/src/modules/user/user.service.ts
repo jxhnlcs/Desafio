@@ -88,11 +88,12 @@ export class UserService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const accessToken = this.generateAccessToken(user.id);
+    const accessToken = this.generateAccessToken(user.id, user.name);
     return { accessToken };
   }
 
-  private generateAccessToken(userId: number): string {
-    return this.jwtService.sign({ sub: userId });
+  private generateAccessToken(userId: number, name: string): string {
+    const payload = { userId, name };
+    return this.jwtService.sign(payload);
   }
 }

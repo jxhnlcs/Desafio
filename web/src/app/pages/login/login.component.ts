@@ -24,7 +24,22 @@ export class LoginComponent {
       this.authService.login(this.email, this.password)
         .subscribe(
           () => {
-            this.router.navigate(['/home']);
+            // Adiciona o SweetAlert ao fazer login com sucesso
+            Swal.fire({
+              icon: 'success',
+              title: 'Login feito com sucesso',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            }).then((result) => {
+              this.router.navigate(['/home']);
+            });
           },
           (error) => {
             console.error('Erro ao efetuar login:', error);
