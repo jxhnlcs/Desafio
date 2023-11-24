@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { authService } from '../../services/auth.service';
-import { JwtHelperService } from '@auth0/angular-jwt'; // Correção aqui
+import { JwtHelperService } from '@auth0/angular-jwt';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,11 @@ import Swal from 'sweetalert2';
 export class NavComponent implements OnInit {
   name: string = '';
 
-  constructor(private authService: authService, private jwtHelper: JwtHelperService) {}
+  constructor(
+    private authService: authService, 
+    private jwtHelper: JwtHelperService,
+    private router: Router,
+    ) {}
 
   ngOnInit(): void {
     this.loadUserInfo();
@@ -28,7 +33,6 @@ export class NavComponent implements OnInit {
   }
 
   onLogout(): void {
-    // Exibir SweetAlert de confirmação
     Swal.fire({
       title: 'Você tem certeza?',
       text: 'Você será desconectado!',
@@ -38,11 +42,13 @@ export class NavComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Limpar as informações do usuário ao fazer logout
         this.authService.logout();
         this.name = '';
 
-        // Redirecionar para a tela de login
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 500);
+
         Swal.fire('Desconectado!', 'Você foi desconectado com sucesso.', 'success');
       }
     });

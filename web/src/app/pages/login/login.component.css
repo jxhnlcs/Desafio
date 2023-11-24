@@ -2,11 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 90vh;
 }
 
 .wrapper {
-  --input-focus: #2d8cf0;
+  --input-focus: #ff8c00;
   --font-color: #323232;
   --font-color-sub: #666;
   --bg-color: #fff;
@@ -120,7 +120,7 @@
   justify-content: center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  background: lightgrey;
+  background: #ff8c00;
   gap: 20px;
   border-radius: 5px;
   border: 2px solid var(--main-color);

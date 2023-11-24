@@ -1,8 +1,14 @@
 <div class="nav-container">
-  <ul>
-
-    <li *ngIf="name">Bem-vindo, {{ name }}!</li>
-
-    <li><a (click)="onLogout()">Logout</a></li>
-  </ul>
+  <div class="left-section">
+    <ul>
+      <li *ngIf="name" class="welcome-message">
+        <i class="fas fa-user"></i> Bem-vindo, {{ name }}!
+      </li>
+    </ul>
+  </div>
+  <div class="right-section">
+    <a routerLink="/home"><i class="fas fa-home"></i> Home</a>
+    <a routerLink="/historico"><i class="fas fa-history"></i> Histórico</a>
+    <a (click)="onLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
 </div>
