@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CepService } from '../../services/cep.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,8 @@ export class HomeComponent {
   showModal: boolean = false;
   modalCep: string = '';
   modalRadius: number = 0;
-  consultas: { cep: string; radius: number }[] = [];
 
-  constructor(private cepService: CepService) {}
+  constructor(private cepService: CepService) { }
 
   openModal(): void {
     this.showModal = true;
@@ -26,20 +26,19 @@ export class HomeComponent {
   }
 
   onBuscar(): void {
-    if (this.centerCep && this.radiusKm) {
+    if (this.isValidCepFormat(this.centerCep) && this.radiusKm > 0) {
       const findCepsDto = {
         userCep: this.centerCep,
         radius: this.radiusKm,
       };
-  
+
       this.cepService.findCepsInRadius(findCepsDto).subscribe(
         (result: any[]) => {
-          // Verificar se cada item tem as propriedades 'cep' e 'radius'
           if (result.every(item => item.hasOwnProperty('cep') && item.hasOwnProperty('radius'))) {
-            // Mapear os objetos para incluir 'cep' e 'radius'
-            this.cepsInRadius = result.map(item => `${item.cep} ${item.radius} KM`);
-            console.log('CEPs no raio:', this.cepsInRadius);
-            this.closeModal()
+            this.cepsInRadius = result.map(item => `${item.cep} ${item.radius}KM`);
+            this.showSuccessAlert();
+            this.clearModalFields();
+            this.closeModal();
           } else {
             console.error('As propriedades "cep" ou "radius" estão ausentes em um ou mais itens.');
           }
@@ -49,24 +48,40 @@ export class HomeComponent {
         }
       );
     } else {
-      console.error('Por favor, informe o CEP e o raio em KM.');
+      this.showAlert('Por favor, adicione um CEP válido no formato "xxxxx-xxx" e um valor válido para o raio.');
     }
   }
-  
-  consultarModal(): void {
-    if (this.modalCep && this.modalRadius) {
-      const findCepsDto = {
-        userCep: this.modalCep,
-        radius: this.modalRadius,
-      };
 
-      // Simulando a chamada do serviço e atualizando o histórico
-      this.cepsInRadius = [this.modalCep]; // Simulação, substitua pelo chamada ao serviço real
-      this.consultas.unshift({ cep: this.modalCep, radius: this.modalRadius });
+  isValidCepFormat(cep: string): boolean {
+    const cepRegex = /^\d{5}-\d{3}$/;
+    return cepRegex.test(cep);
+  }
 
-      this.closeModal();
-    } else {
-      console.error('Por favor, informe o CEP e o raio em KM.');
-    }
+  clearModalFields(): void {
+    this.centerCep = '';
+    this.radiusKm = 0;
+  }
+
+  showAlert(message: string): void {
+    Swal.fire({
+      icon: 'warning',
+      title: message,
+    });
+  }
+
+  showSuccessAlert(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Consulta efetuada com sucesso',
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
   }
 }

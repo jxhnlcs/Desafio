@@ -11,13 +11,59 @@
   margin-right: 30px;
 }
 
+.center-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
+  text-align: center;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   background-color: #fff;
   margin-top: 20px;
+  max-width: 50%;
+  width: 100%;
+}
+
+.center-table{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-table {
+  width: 50%;
+  margin-top: 10px;
+}
+
+.result-table th, .result-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.result-table th {
+  background-color: #f2f2f2;
+}
+
+.result-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.result-table tr:hover {
+  background-color: #e6f7ff;
+}
+
+.odd-row {
+  background-color: #f0f0f0;
+}
+
+.even-row {
+  background-color: #ffffff;
 }
 
 .card-title {
@@ -49,10 +95,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-h3 {
-  margin-top: 20px;
-}
-
 ul {
   list-style-type: none;
   padding: 0;
@@ -70,11 +112,12 @@ li {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
   z-index: 1000;
+  width: 300px;
 }
 
 .modal-background {
@@ -91,4 +134,16 @@ li {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_modal{
+  outline: none;
+  border-radius: 15px;
+  border: 0.5px solid #ff8c00;
 }

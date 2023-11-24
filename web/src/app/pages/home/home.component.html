@@ -3,32 +3,39 @@
   <div class="top-container">
     <button (click)="openModal()">Nova Consulta</button>
   </div>
-  
-  <div class="card">
-    <div>
-      <h3>CEPS no raio de {{radiusKm}} KM</h3>
-      <table>
-        <tbody>
-          <tr *ngFor="let cep of cepsInRadius">
-            <td>{{ cep }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="center-card">
+    <div class="card">
+      <div>
+        <h3>CEPS no raio</h3>
+        <div class="center-table">
+          <table class="result-table">
+            <thead>
+              <td>CEP ⠀ KM</td>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cep of cepsInRadius; let odd = odd" [ngClass]="{ 'odd-row': odd, 'even-row': !odd }">
+                <td>{{ cep }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="modal-background" *ngIf="showModal"></div>
-<div class="modal-container" *ngIf="showModal">
-  <div class="modal">
-    <h2>Consultar Novo CEP</h2>
-    <label for="modalCep">CEP:</label>
-    <input type="text" id="centerCep" placeholder="Informe o CEP" [(ngModel)]="centerCep">
-    
-    <label for="modalRadius">Raio (KM):</label>
-    <input type="number" id="radiusKm" placeholder="Informe o raio em KM" [(ngModel)]="radiusKm">
-    
-    <button (click)="onBuscar()">Consultar</button>
-    <button (click)="closeModal()">Fechar</button>
+  <div class="modal-background" *ngIf="showModal"></div>
+  <div class="modal-container" *ngIf="showModal">
+    <div class="modal">
+      <h2 style="margin-bottom: 10px;">Consultar Novo CEP</h2>
+      <label for="modalCep">CEP</label>
+      <input class="input_modal" type="text" id="centerCep" placeholder="Informe o CEP" [(ngModel)]="centerCep">
+
+      <label for="modalRadius">Raio (KM)</label>
+      <input class="input_modal" type="number" id="radiusKm" placeholder="Informe o raio em KM" [(ngModel)]="radiusKm">
+
+      <div class="buttons">
+        <button (click)="onBuscar()">Consultar</button>
+        <button (click)="closeModal()">Fechar</button>
+      </div>
+    </div>
   </div>
-</div>
