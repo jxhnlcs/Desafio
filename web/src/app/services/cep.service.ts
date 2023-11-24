@@ -1,4 +1,3 @@
-// cep.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,26 +11,6 @@ export class CepService {
 
   private get apiUrl(): string {
     return this.configService.apiUrl;
-  }
-
-  createConsultation(createConsultationDto: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/consultation`, createConsultationDto);
-  }
-
-  getConsultationById(consultationId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/consultation/${consultationId}`);
-  }
-
-  getAllConsultations(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/consultation`);
-  }
-
-  updateConsultation(consultationId: string, updateConsultationDto: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/consultation/${consultationId}`, updateConsultationDto);
-  }
-
-  deleteConsultation(consultationId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/consultation/${consultationId}`);
   }
 
   findCepsInRadius(findCepsDto: any): Observable<string[]> {

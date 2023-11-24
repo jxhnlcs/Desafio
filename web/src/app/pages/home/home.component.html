@@ -1,25 +1,34 @@
 <app-nav></app-nav>
 <div class="container">
+  <div class="top-container">
+    <button (click)="openModal()">Nova Consulta</button>
+  </div>
+  
   <div class="card">
-    <h2 class="card-title">Consulta de CEPs por Raio de KM</h2>
-
     <div>
-      <label for="centerCep" class="form-label">CEP:</label>
-      <input type="text" id="centerCep" placeholder="Informe o CEP">
+      <h3>CEPS no raio de {{radiusKm}} KM</h3>
+      <table>
+        <tbody>
+          <tr *ngFor="let cep of cepsInRadius">
+            <td>{{ cep }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
 
-    <div>
-      <label for="radiusKm" class="form-label">Raio (KM):</label>
-      <input type="number" id="radiusKm" placeholder="Informe o raio em KM">
-    </div>
-
-    <button>Buscar</button>
-
-    <div>
-      <h3>CEPs no Raio:</h3>
-      <ul>
-        <li>CEP 12345-678</li>
-      </ul>
-    </div>
+<div class="modal-background" *ngIf="showModal"></div>
+<div class="modal-container" *ngIf="showModal">
+  <div class="modal">
+    <h2>Consultar Novo CEP</h2>
+    <label for="modalCep">CEP:</label>
+    <input type="text" id="centerCep" placeholder="Informe o CEP" [(ngModel)]="centerCep">
+    
+    <label for="modalRadius">Raio (KM):</label>
+    <input type="number" id="radiusKm" placeholder="Informe o raio em KM" [(ngModel)]="radiusKm">
+    
+    <button (click)="onBuscar()">Consultar</button>
+    <button (click)="closeModal()">Fechar</button>
   </div>
 </div>
