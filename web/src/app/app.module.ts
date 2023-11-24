@@ -9,6 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FormsModule } from '@angular/forms'; 
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
         disallowedRoutes: ['example.com/disallowed'],
       },
     }),
+    BrowserAnimationsModule,
   ],
   providers: [JwtHelperService],
   bootstrap: [AppComponent]
