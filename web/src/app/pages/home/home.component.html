@@ -1,12 +1,17 @@
-<app-nav></app-nav>
-<div class="container">
-  <div class="top-container">
-    <button (click)="openModal()">Nova Consulta</button>
-  </div>
-  <div class="center-card">
-    <div class="card">
-      <div>
-        <h3>CEPS no raio</h3>
+<div class="main">
+  <app-nav></app-nav>
+  <div class="main-section">
+    <div class="main_row">
+      <h1>⠀⠀</h1>
+      <button class="button_consulta" (click)="openModal()">
+        <i class="bx bx-plus"></i> Nova consulta
+      </button>
+    </div>
+    <div class="box">
+      <div class="card">
+        <div class="card-top">
+          <h3>Buscar CEP</h3>
+        </div>
         <div class="center-table">
           <table class="result-table">
             <thead>
@@ -21,21 +26,22 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="modal-background" *ngIf="showModal"></div>
-  <div class="modal-container" *ngIf="showModal">
-    <div class="modal">
-      <h2 style="margin-bottom: 10px;">Consultar Novo CEP</h2>
-      <label for="modalCep">CEP</label>
-      <input class="input_modal" type="text" id="centerCep" placeholder="Informe o CEP" [(ngModel)]="centerCep">
+    <div class="modal-background" *ngIf="showModal"></div>
+    <div class="modal-container" *ngIf="showModal">
+      <div class="modal">
+        <h2 style="margin-bottom: 10px;">Consultar Novo CEP</h2>
+        <label for="modalCep">CEP</label>
+        <input class="input_modal" type="text" id="centerCep" placeholder="Informe o CEP" [(ngModel)]="centerCep">
 
-      <label for="modalRadius">Raio (KM)</label>
-      <input class="input_modal" type="number" id="radiusKm" placeholder="Informe o raio em KM" [(ngModel)]="radiusKm">
+        <label for="modalRadius">Raio (KM)</label>
+        <input class="input_modal" type="number" id="radiusKm" placeholder="Informe o raio em KM"
+          [(ngModel)]="radiusKm">
 
-      <div class="buttons">
-        <button (click)="onBuscar()">Consultar</button>
-        <button (click)="closeModal()">Fechar</button>
+        <div class="buttons">
+          <button (click)="onBuscar()">Consultar</button>
+          <button (click)="closeModal()">Fechar</button>
+        </div>
       </div>
     </div>
   </div>

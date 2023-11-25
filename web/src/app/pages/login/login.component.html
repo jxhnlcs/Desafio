@@ -1,60 +1,52 @@
-<!-- <div class="content">
-  <div class="wrapper">
-    <div class="left-login">
-      <img class="img-login" src="../../../assets/img/img.png" alt="Imagem login">
-    </div>
-    <div class="right-login">
-      <div class="card-login">
-        <div class="top-card">
-          <h1>Login</h1>
-        </div>
-        <form form (ngSubmit)="onLogin()">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="text">
-          </div>
-          <div class="form-group">
-            <label>Senha</label>
-            <input type="password">
-          </div>
-          <button>Entrar</button>
-        </form>
-      </div>
-    </div>
+<div class="main-login">
+  <div class="left-login">
+    <img src="../../../assets/img/address-animate.svg" class="left-login-image" alt="Animação portal">
   </div>
-</div> -->
+  <div class="right-login">
+    <div class="card-login">
+      <h1>Login</h1>
 
-<div class="content">
-  <div class="wrapper">
-    <div class="card-switch">
-      <label class="switch">
-        <input class="toggle" type="checkbox">
-        <span class="slider"></span>
-        <span class="card-side"></span>
-        <div class="flip-card__inner">
-          <div class="flip-card__front">
-            <div class="title">Login</div>
-            <form (ngSubmit)="onLogin()" class="flip-card__form">
-              <input type="email" placeholder="Email" name="email" [(ngModel)]="email" required
-                class="flip-card__input">
-              <input type="password" placeholder="Senha" name="password" [(ngModel)]="password" required
-                class="flip-card__input">
-              <button class="flip-card__btn">Entrar</button>
-            </form>
-          </div>
-          <div class="flip-card__back">
-            <div class="title">Cadastro</div>
-            <form (ngSubmit)="onSignup()" class="flip-card__form">
-              <input type="text" placeholder="Nome" name="signupName" [(ngModel)]="signupName" class="flip-card__input">
-              <input type="email" placeholder="Email" name="signupEmail" [(ngModel)]="signupEmail"
-                class="flip-card__input">
-              <input type="password" placeholder="Senha" name="signupPassword" [(ngModel)]="signupPassword"
-                class="flip-card__input">
-              <button type="submit" class="flip-card__btn">Confirmar</button>
-            </form>
-          </div>
+      <!-- Formulário de Login -->
+      <form *ngIf="!isSignup" (ngSubmit)="onLogin()">
+        <div class="textfield">
+          <label for="usuario">Email</label>
+          <input [(ngModel)]="email" required type="text" name="usuario" placeholder="Email">
         </div>
-      </label>
+        <div class="textfield">
+          <label for="senha">Senha</label>
+          <input [(ngModel)]="password" required type="password" name="senha" placeholder="Senha">
+        </div>
+        <button class="btn-login" type="submit">Entrar</button>
+        <div class="signup">
+          <hr class="line-left">
+          <button class="btn-small" (click)="onSignupClick()">Cadastre-se</button>
+          <hr class="line-right">
+        </div>
+      </form>
+
+      <!-- Formulário de Cadastro -->
+      <form *ngIf="isSignup" (ngSubmit)="onSignup()">
+        <div class="textfield">
+          <label for="signupName">Nome</label>
+          <input [(ngModel)]="signupName" required type="text" name="signupName" placeholder="Nome">
+        </div>
+        <div class="textfield">
+          <label for="signupEmail">Email</label>
+          <input [(ngModel)]="signupEmail" required type="text" name="signupEmail" placeholder="Email">
+        </div>
+        <div class="textfield">
+          <label for="signupPassword">Senha</label>
+          <input [(ngModel)]="signupPassword" required type="password" name="signupPassword" placeholder="Senha">
+        </div>
+        <button class="btn-login" type="submit">Cadastrar</button>
+      </form>
+
+      <!-- Botão Voltar -->
+      <div class="signup" *ngIf="isSignup">
+        <hr class="line-left">
+        <button class="btn-small" (click)="onBackToLogin()">Voltar</button>
+        <hr class="line-right">
+      </div>
     </div>
   </div>
 </div>

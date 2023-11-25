@@ -16,6 +16,15 @@ export class LoginComponent {
   signupName: string = '';
   signupEmail: string = '';
   signupPassword: string = '';
+  isSignup: boolean = false;
+
+  onSignupClick() {
+    this.isSignup = true;
+  }
+
+  onBackToLogin() {
+    this.isSignup = false;
+  }
 
   constructor(private authService: authService, private router: Router) { }
 
