@@ -34,7 +34,7 @@ export class ConsultationController {
 
   @Post('find-ceps-in-radius')
   async findCepsInRadius(@Body() findCepsDto: FindCepsDto): Promise<string[]> {
-    const { userCep, radius } = findCepsDto;
-    return this.consultationService.findCepsInRadius(userCep, radius);
+    const { loggedUserId, userCep, radius } = findCepsDto;
+    return this.consultationService.findCepsInRadius(loggedUserId, userCep, radius);
   }
 }

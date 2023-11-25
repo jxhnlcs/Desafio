@@ -72,24 +72,42 @@ export class ConsultationService {
     }
   }
 
-  async findCepsInRadius(userCep: string, radius: number): Promise<any[]> {
+  async findCepsInRadius(loggedUserId: number, userCep: string, radius: number): Promise<any[]> {
     const allCeps = await this.prisma.consultation.findMany();
-
-    const cepsInRadius = allCeps
-      .filter((consultation) => consultation.radius <= radius)
-      .map((consultation) => ({
-        id: consultation.id,
-        cep: consultation.cep,
-        radius: consultation.radius,
-        userId: consultation.userId,
-      }));
-
+  
+    const cepsInRadius = await Promise.all(
+      allCeps
+        .filter((consultation) => consultation.radius <= radius)
+        .map(async (consultation) => {
+          const user = await this.prisma.user.findUnique({
+            where: { id: consultation.userId },
+          });
+  
+          await this.prisma.historico.create({
+            data: {
+              userId: loggedUserId,
+              name: user?.name,
+              cep: userCep,
+              radius: radius,
+            },
+          });
+  
+          return {
+            id: consultation.id,
+            cep: consultation.cep,
+            radius: consultation.radius,
+            userId: loggedUserId,
+            name: user.name,
+          };
+        })
+    );
+  
     if (cepsInRadius.length === 0) {
-      throw new NotFoundException(`No CEPs found within the specified radius.`);
+      throw new NotFoundException(`Não existe`);
     }
-
+  
     return cepsInRadius;
-}
+  }
 
   private consultationToDto(consultation: any): ConsultationDto {
     const { id, cep, radius, userId, createdAt } = consultation;

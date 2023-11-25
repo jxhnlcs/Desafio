@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement()) @map("users")
-  name     String
-  email    String   @unique
-  password String
-  createdAt DateTime @default(now()) @map("created_at")
+  id            Int           @id @default(autoincrement()) @map("users")
+  name          String
+  email         String        @unique
+  password      String
+  createdAt     DateTime      @default(now()) @map("created_at")
   consultations Consultation[]
+  historico     Historico[]
 }
 
 model Consultation {
@@ -23,4 +24,15 @@ model Consultation {
   cep       String
   radius    Int
   createdAt DateTime @default(now()) @map("created_at")
+}
+
+model Historico {
+  id        Int      @id @default(autoincrement()) @map("historico")
+  userId    Int
+  name      String
+  cep       String
+  radius    Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id])
 }
