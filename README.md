@@ -1,6 +1,62 @@
 ### Desafio do Sistema de Consulta de CEPs
 
-#### Objetivo:
+## Pré-requisitos
+
+Certifique-se de ter o Node.js instalado em sua máquina. Você pode baixá-lo em [nodejs.org](https://nodejs.org/).
+
+## Configuração do Backend
+
+1. Navegue até a pasta `api`:
+   ```bash
+   cd api
+   ```
+   
+2. Instale as dependências
+   ```bash
+   npm install
+   ```
+
+3. Execute as migrações do banco de dados
+   ```bash
+   npx prisma migrate dev
+   ```
+
+4. Inicie o servidor Nest.js:
+   ```bash
+   npm run start
+   ```
+
+   O backend estará em execução em http://localhost:3000.
+
+## Configuração do Frontend
+
+1. Navegue até a pasta `web`:
+   ```bash
+   cd web
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Inicie o servidor Angular:
+   ```bash
+   ng serve
+   ```
+
+   O frontend estará disponível em http://localhost:4200.
+
+## Inserindo CEPs no Banco de Dados
+- Na pasta prisma, há um diretório migrations com um script create_insertinto. Execute-o para inserir alguns CEPs na tabela do banco de dados:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+   OU
+
+- Se preferir não usar o script de migração, há um modelo de array de CEPs na pasta web/src/app/models/SimulatedCepsData.ts. Descomente o código necessário para usar esses dados simulados no home.component.ts a partir da linha 34
+
+## Objetivo:
 Desenvolver um sistema multiplataforma que permita aos usuários logados realizar consultas de CEPs baseadas em um raio de distância específico e exibir os resultados em uma tabela. Além disso, é necessário ter uma página de histórico para visualização das consultas realizadas.
 
 #### Funcionalidades Principais:
