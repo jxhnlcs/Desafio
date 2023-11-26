@@ -30,7 +30,7 @@ Certifique-se de ter o Node.js instalado em sua máquina. Você pode baixá-lo e
 
 ## Configuração do Frontend
 
-1. Navegue até a pasta web:
+1. Navegue até a pasta `web`:
    ```bash
    cd web
    ```
