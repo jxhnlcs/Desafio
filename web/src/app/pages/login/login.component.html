@@ -1,51 +1,54 @@
-<div class="main-login">
-  <div class="left-login">
-    <img src="../../../assets/img/address-animate.svg" class="left-login-image" alt="Animação portal">
-  </div>
-  <div class="right-login">
-    <div class="card-login">
-      <h1>Login</h1>
+<div class="main">
+  <div class="main-login">
+    <div class="left-login">
+      <img src="../../../assets/img/address-animate.svg" class="left-login-image" alt="Animação portal">
+    </div>
+    <div class="right-login">
+      <div class="card-login">
+        <h1 *ngIf="!isSignup">Login</h1>
+        <h1 *ngIf="isSignup">Cadastro</h1>
 
-      <!-- Formulário de Login -->
-      <form *ngIf="!isSignup" (ngSubmit)="onLogin()">
-        <div class="textfield">
-          <label for="usuario">Email</label>
-          <input [(ngModel)]="email" required type="text" name="usuario" placeholder="Email">
-        </div>
-        <div class="textfield">
-          <label for="senha">Senha</label>
-          <input [(ngModel)]="password" required type="password" name="senha" placeholder="Senha">
-        </div>
-        <button class="btn-login" type="submit">Entrar</button>
-        <div class="signup">
+        <!-- Formulário de Login -->
+        <form *ngIf="!isSignup" (ngSubmit)="onLogin()">
+          <div class="textfield">
+            <label for="usuario">Email</label>
+            <input [(ngModel)]="email" required type="text" name="usuario" placeholder="Email">
+          </div>
+          <div class="textfield">
+            <label for="senha">Senha</label>
+            <input [(ngModel)]="password" required type="password" name="senha" placeholder="Senha">
+          </div>
+          <button class="btn-login" type="submit">Entrar</button>
+          <div class="signup">
+            <hr class="line-left">
+            <button class="btn-small" (click)="onSignupClick()">Cadastre-se</button>
+            <hr class="line-right">
+          </div>
+        </form>
+
+        <!-- Formulário de Cadastro -->
+        <form *ngIf="isSignup" (ngSubmit)="onSignup()">
+          <div class="textfield">
+            <label for="signupName">Nome</label>
+            <input [(ngModel)]="signupName" required type="text" name="signupName" placeholder="Nome">
+          </div>
+          <div class="textfield">
+            <label for="signupEmail">Email</label>
+            <input [(ngModel)]="signupEmail" required type="text" name="signupEmail" placeholder="Email">
+          </div>
+          <div class="textfield">
+            <label for="signupPassword">Senha</label>
+            <input [(ngModel)]="signupPassword" required type="password" name="signupPassword" placeholder="Senha">
+          </div>
+          <button class="btn-login" type="submit">Cadastrar</button>
+        </form>
+
+        <!-- Botão Voltar -->
+        <div class="signup" *ngIf="isSignup">
           <hr class="line-left">
-          <button class="btn-small" (click)="onSignupClick()">Cadastre-se</button>
+          <button class="btn-small" (click)="onBackToLogin()">Voltar</button>
           <hr class="line-right">
         </div>
-      </form>
-
-      <!-- Formulário de Cadastro -->
-      <form *ngIf="isSignup" (ngSubmit)="onSignup()">
-        <div class="textfield">
-          <label for="signupName">Nome</label>
-          <input [(ngModel)]="signupName" required type="text" name="signupName" placeholder="Nome">
-        </div>
-        <div class="textfield">
-          <label for="signupEmail">Email</label>
-          <input [(ngModel)]="signupEmail" required type="text" name="signupEmail" placeholder="Email">
-        </div>
-        <div class="textfield">
-          <label for="signupPassword">Senha</label>
-          <input [(ngModel)]="signupPassword" required type="password" name="signupPassword" placeholder="Senha">
-        </div>
-        <button class="btn-login" type="submit">Cadastrar</button>
-      </form>
-
-      <!-- Botão Voltar -->
-      <div class="signup" *ngIf="isSignup">
-        <hr class="line-left">
-        <button class="btn-small" (click)="onBackToLogin()">Voltar</button>
-        <hr class="line-right">
       </div>
     </div>
   </div>

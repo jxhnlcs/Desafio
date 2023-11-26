@@ -1,4 +1,6 @@
 -- CreateTable
+use girosscep;
+
 CREATE TABLE `User` (
     `users` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
@@ -23,3 +25,16 @@ CREATE TABLE `Consultation` (
 
 -- AddForeignKey
 ALTER TABLE `Consultation` ADD CONSTRAINT `Consultation_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`users`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+INSERT INTO `Consultation` (`userId`, `cep`, `radius`)
+VALUES
+(1, '12345-678', 5),
+(1, '54321-876', 10),
+(1, '98765-432', 15),
+(1, '11111-222', 8),
+(1, '33333-444', 12),
+(1, '55555-666', 18),
+(1, '77777-888', 3),
+(1, '99999-000', 7),
+(1, '22222-333', 14),
+(1, '44444-555', 9);

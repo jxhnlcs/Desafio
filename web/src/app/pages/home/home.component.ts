@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CepService } from '../../services/cep.service';
 import Swal from 'sweetalert2';
+import { of } from 'rxjs';
+import { simulatedCepsData } from '../../models/SimulatedCepsData';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,8 @@ export class HomeComponent {
   modalCep: string = '';
   modalRadius: number = 0;
 
+  simulatedCepsData = simulatedCepsData;
+
   constructor(private cepService: CepService) { }
 
   openModal(): void {
@@ -24,6 +28,32 @@ export class HomeComponent {
   closeModal(): void {
     this.showModal = false;
   }
+
+  //Buscando do array
+
+  // onBuscar(): void {
+  //   if (this.isValidCepFormat(this.centerCep) && this.radiusKm > 0) {
+  //     // Simule a chamada do serviço usando dados simulados
+  //     of(this.simulatedCepsData).subscribe(
+  //       (result: any[]) => {
+  //         if (result.every(item => item.hasOwnProperty('cep') && item.hasOwnProperty('radius'))) {
+  //           this.cepsInRadius = result.map(item => `${item.cep} ${item.radius}KM`);
+  //           console.log(this.cepsInRadius)
+  //           this.showSuccessAlert();
+  //           this.clearModalFields();
+  //           this.closeModal();
+  //         } else {
+  //           console.error('As propriedades "cep" ou "radius" estão ausentes em um ou mais itens.');
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error('Erro ao buscar CEPs:', error);
+  //       }
+  //     );
+  //   } else {
+  //     this.showAlert('Por favor, adicione um CEP válido no formato "xxxxx-xxx" e um valor válido para o raio.');
+  //   }
+  // }
 
   onBuscar(): void {
     if (this.isValidCepFormat(this.centerCep) && this.radiusKm > 0) {
@@ -35,21 +65,41 @@ export class HomeComponent {
       this.cepService.findCepsInRadius(findCepsDto).subscribe(
         (result: any[]) => {
           if (result.every(item => item.hasOwnProperty('cep') && item.hasOwnProperty('radius'))) {
-            this.cepsInRadius = result.map(item => `${item.cep} ${item.radius}KM`);
-            this.showSuccessAlert();
-            this.clearModalFields();
-            this.closeModal();
+            if (result.length > 0) {
+              this.cepsInRadius = result.map(item => `${item.cep}⠀⠀ ${item.radius}KM`);
+              this.showSuccessAlert();
+              this.clearModalFields();
+              this.closeModal();
+            } else {
+              this.clearModalFields();
+              this.closeModal();
+            }
           } else {
             console.error('As propriedades "cep" ou "radius" estão ausentes em um ou mais itens.');
           }
         },
         (error) => {
           console.error('Erro ao buscar CEPs:', error);
+
+          if (error.status === 404) {
+            this.showNoCepsFoundAlert();
+          } else {
+          }
         }
       );
     } else {
       this.showAlert('Por favor, adicione um CEP válido no formato "xxxxx-xxx" e um valor válido para o raio.');
     }
+  }
+
+  showNoCepsFoundAlert(): void {
+    Swal.fire({
+      icon: 'info',
+      title: 'Nenhum CEP encontrado',
+      text: 'Desculpe, nenhum CEP foi encontrado no raio fornecido. Tente ajustar os parâmetros da pesquisa.',
+      showConfirmButton: false,
+      timer: 3000,
+    });
   }
 
   isValidCepFormat(cep: string): boolean {

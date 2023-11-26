@@ -40,4 +40,8 @@ export class authService {
   logout(): void {
     localStorage.removeItem('token');
   }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

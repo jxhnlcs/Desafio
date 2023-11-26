@@ -27,7 +27,6 @@ export class NavComponent implements OnInit {
 
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken: any = this.jwtHelper.decodeToken(token);
-      console.log(decodedToken)
       this.name = decodedToken.name;
     }
   }

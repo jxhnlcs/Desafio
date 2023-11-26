@@ -52,10 +52,19 @@ export class LoginComponent {
           },
           (error) => {
             console.error('Erro ao efetuar login:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Erro ao efetuar login',
+              text: 'E-mail ou senha inválidos. Por favor, verifique suas credenciais e tente novamente.',
+            });
           }
         );
     } else {
-      console.error('Por favor, forneça e-mail e senha.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos nulos',
+        text: 'Por favor forneça um email e uma senha.',
+      });
     }
   }
 
@@ -78,7 +87,11 @@ export class LoginComponent {
           }
         );
     } else {
-      console.error('Por favor, forneça nome, e-mail e senha para se cadastrar.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos nulos',
+        text: 'Por favor forneça um email e uma senha.',
+      });
     }
   }
 }
