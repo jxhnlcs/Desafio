@@ -52,7 +52,7 @@ Certifique-se de ter o Node.js instalado em sua máquina. Você pode baixá-lo e
    npx prisma migrate dev
    ```
 
-   OU
+   ou
 
 - Se preferir não usar o script de migração, há um modelo de array de CEPs na pasta web/src/app/models/SimulatedCepsData.ts. Descomente o código necessário para usar esses dados simulados no home.component.ts a partir da linha 34
 
